@@ -1,32 +1,37 @@
+var _a;
 function generateResume() {
-    var name = document.getElementById('name').value;
-    var email = document.getElementById('email').value;
-    var location = document.getElementById('location').value;
-    var objective = document.getElementById('objective').value;
-    var education = document.getElementById('education').value;
-    var workExperience = document.getElementById('work-experience').value;
-    var skills = document.getElementById('skills').value;
-    var awards = document.getElementById('awards').value;
-    var languages = document.getElementById('languages').value;
-    var contactNumber = document.getElementById('contact-number').value;
-    var resume = "\n        <h1>".concat(name, "</h1>\n        <p><strong>Email:</strong> ").concat(email, "</p>\n        <p><strong>Location:</strong> ").concat(location, "</p>\n        <p><strong>Objective:</strong> ").concat(objective, "</p>\n        \n        <h2>Education</h2>\n        <p>").concat(education, "</p>\n        \n        <h2>Work Experience</h2>\n        <p>").concat(workExperience, "</p>\n        \n        <h2>Skills</h2>\n        <p>").concat(skills, "</p>\n        \n        <h2>Awards</h2>\n        <p>").concat(awards, "</p>\n        \n        <h2>Languages</h2>\n        <p>").concat(languages, "</p>\n        \n        <h2>Contact Number</h2>\n        <p>").concat(contactNumber, "</p>\n    ");
-    document.getElementById('resume').innerHTML = resume;
-    document.getElementById('resume-output').classList.remove('hidden');
+    var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k;
+    // Fetching form values
+    var name = ((_a = document.getElementById('name')) === null || _a === void 0 ? void 0 : _a.value) || '';
+    var email = ((_b = document.getElementById('email')) === null || _b === void 0 ? void 0 : _b.value) || '';
+    var location = ((_c = document.getElementById('location')) === null || _c === void 0 ? void 0 : _c.value) || '';
+    var contact = ((_d = document.getElementById('contact')) === null || _d === void 0 ? void 0 : _d.value) || '';
+    var objective = ((_e = document.getElementById('objective')) === null || _e === void 0 ? void 0 : _e.value) || '';
+    var education = ((_f = document.getElementById('education')) === null || _f === void 0 ? void 0 : _f.value) || '';
+    var experience = ((_g = document.getElementById('experience')) === null || _g === void 0 ? void 0 : _g.value) || '';
+    var skills = ((_h = document.getElementById('skills')) === null || _h === void 0 ? void 0 : _h.value) || '';
+    var awards = ((_j = document.getElementById('awards')) === null || _j === void 0 ? void 0 : _j.value) || '';
+    var activities = ((_k = document.getElementById('activities')) === null || _k === void 0 ? void 0 : _k.value) || '';
+    // Reference to the resume display section
+    var resumeContainer = document.getElementById('resume');
+    // Check if the resume container exists before updating
+    if (resumeContainer) {
+        resumeContainer.innerHTML = "\n            <h2>".concat(name, "</h2>\n            <p><strong>Email:</strong> ").concat(email, "</p>\n            <p><strong>Location:</strong> ").concat(location, "</p>\n            <p><strong>Contact:</strong> ").concat(contact, "</p>\n            <h3 style=\"color: #00796b;\">Objective</h3>\n            <p>").concat(objective, "</p>\n            <h3>Education</h3>\n            <table class=\"resume-table\">\n                <tr>\n                    <th>Details</th>\n                </tr>\n                <tr>\n                    <td>").concat(education, "</td>\n                </tr>\n            </table>\n            <h3>Experience</h3>\n            <table class=\"resume-table\">\n                <tr>\n                    <th>Details</th>\n                </tr>\n                <tr>\n                    <td>").concat(experience, "</td>\n                </tr>\n            </table>\n            <h3>Skills</h3>\n            <table class=\"resume-table\">\n                <tr>\n                    <th>Details</th>\n                </tr>\n                <tr>\n                    <td>").concat(skills, "</td>\n                </tr>\n            </table>\n            <h3>Awards</h3>\n            <p>").concat(awards, "</p>\n            <h3>Extra-Curricular Activities</h3>\n            <p>").concat(activities, "</p>\n        ");
+    }
+    // Show the generated resume section
+    var resumeOutput = document.getElementById('resume-output');
+    if (resumeOutput) {
+        resumeOutput.classList.remove('hidden');
+    }
 }
-function downloadResume() {
-    var resumeContent = document.getElementById('resume').innerText;
-    var blob = new Blob([resumeContent], { type: 'text/plain;charset=utf-8' });
-    var url = URL.createObjectURL(blob);
-    var a = document.createElement('a');
-    a.href = url;
-    a.download = 'resume.txt';
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
+function downloadPDF() {
+    var resumeElement = document.getElementById('resume');
+    if (resumeElement) {
+        html2pdf().from(resumeElement).save('resume.pdf');
+    }
 }
-document.addEventListener('DOMContentLoaded', function () {
-    document.getElementById('resume-form').addEventListener('submit', function (event) {
-        event.preventDefault();
-        generateResume();
-    });
+// Add event listener to handle form submission and resume generation
+(_a = document.getElementById('resume-form')) === null || _a === void 0 ? void 0 : _a.addEventListener('submit', function (e) {
+    e.preventDefault();
+    generateResume();
 });
